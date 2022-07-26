@@ -1,49 +1,53 @@
 const express = require('express');
 const router = express.Router();
 const { Recipe, Diet } = require('../db.js');
-const {allRecipes} = require('./GetFunctions.js');
+const {allPokemons} = require('./GetFunctions.js');
 
+// GET /pokemons:
+// Obtener un listado de los pokemons desde pokeapi.
+// Debe devolver solo los datos necesarios para la ruta principal
 
-// [ ] GET /recipes?name="...":
-// Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
-// Si no existe ninguna receta mostrar un mensaje adecuado
+//  GET /pokemons?name="...":
+// Obtener el pokemon que coincida exactamente con el nombre pasado como query parameter (Puede ser de pokeapi o creado por nosotros)
+// Si no existe ningún pokemon mostrar un mensaje adecuado
 
 router.get('/',async (req, res) => { 
     try {
       const { name } = req.query;
   
-      const recipe = await allRecipes();
+      const pokemons = await allPokemons();
       
       if (name) {
 
-        const recipesFilterByName = recipe.filter((r) =>
-          r.name.toLowerCase().includes(name.toLowerCase()));
+        const pokemonsFilterByName = pokemons.filter((r) =>
+          r.name.toLowerCase() === name.toLowerCase());
 
-        fil.length  ? res.send(recipesFilterByName) 
-                    : res.status(404).send({ 
-                        msg: "We not found any recipe with that name, please try another one" });
+        pokemonsFilterByName.length   ? res.send(recipesFilterByName) 
+                                      : res.status(404).send({ 
+                    msg: "We not found any pokemon with that name, please try another one." });
       
-      } else { return res.send(recipe); }
+      } else { return res.send(pokemons); }
 
     } catch (e) { console.log(e); }
 });
 
-// [ ] GET /recipes/{idReceta}:
-// Obtener el detalle de una receta en particular
-// Debe traer solo los datos pedidos en la ruta de detalle de receta
-// Incluir los tipos de dieta asociados
+//  GET /pokemons/{idPokemon}:
+// Obtener el detalle de un pokemon en particular
+// Debe traer solo los datos pedidos en la ruta de detalle de pokemon
+// Tener en cuenta que tiene que funcionar tanto para un id de un pokemon 
+// existente en pokeapi o uno creado por ustedes
 
 router.get('/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const recetas = await allRecipes();
+      const pokemons = await allPokemons();
       
       if (id) {
-        // console.log(recetas)
-        const recipeById = recetas.filter((r) => parseInt(r.id) === parseInt(id));
+      
+        const pokemonsById = pokemons.filter((p) => parseInt(p.id) === parseInt(id));
         
-        recipeById.length   ? res.send(recipeById)
-                            : res.send({ msg: "Error does not exist, should enter a valid ID" });
+        pokemonsById.length   ? res.send(pokemonsById)
+                              : res.send({ msg: "Error does not exist, should enter a valid ID" });
 
       } else {
         res.send({ msg: "Should enter a valid ID" });
@@ -54,54 +58,59 @@ router.get('/:id', async (req, res) => {
   });
 
 
-// [ ] POST /recipe:
-// Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
-// Crea una receta en la base de datos
+//  POST /pokemons:
+// Recibe los datos recolectados desde el formulario controlado de la ruta 
+// de creación de pokemons por body
+// Crea un pokemon en la base de datos relacionado con sus tipos.
 
-router.post('/create', async (req, res) => {
-  const { name, summary, score, healthyScore, steps, type, image, dishTypes } = req.body;
+router.post('/', async (req, res) => {
+  const {name, life, attack, defense, speed, height, weight, types, image} = req.body;
   try {
-    const nuevaReceta = await Recipe.create({
-      name,
-      summary,
-      score,
-      healthyScore,
-      steps,
+
+    // corroboramos que esten todos los datos
+    if (!name || !life || !attack || !defense || !speed || !height || !weight) {
+      return res.status(400).json({
+          info: `Theres a missing value`
+      })
+    }
+    
+    // corroboramos que no se cargo antes un pokemon con el mismo nombre
+    const exists = await Pokemon.findOne({ where: { name: req.body.name } })
+    if (exists) return res.json({ info: "This pokemons already exists!" });
+
+    // transformamos el arreglo de los tipos y corroboramos que al menos se cargo un tipo
+    let arrType = []
+    types.map(e => arrType.push({ name: e }))
+    if (!arrType.length) { return res.status(400).json({ info: `Choose at least one type` }) }
+
+    // cargamos en nuevo pokemon a la BD
+    const newPokemon = await Pokemon.create({
+      name, 
+      life,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
       image,
-      dishTypes, 
-      type
-    });
-        
-    const dietas = await Diet.findAll({
-      where: { name: type },
     });
 
-    await nuevaReceta.addDiet(dietas); 
-  
-    return res.status(200).send({ msg: "Recipe created successfully" });
+    // cargamos los types para el nuevo pokemon relacionando las tablas
+    for (i=0; i<arrType.length; i++) {
+      let typeDb = await Types.findAll({ where: { name: arrType[i].name } })
+      newPokemon.addType(typeDb);
+    }
+    
+    return res.status(200).send({ msg: "Pokemon created successfully!!" });
   
   } catch (e) { console.log(e); }
 });
 
 module.exports = router;
 
-// GET /pokemons:
-// Obtener un listado de los pokemons desde pokeapi.
-// Debe devolver solo los datos necesarios para la ruta principal
-
-//  GET /pokemons/{idPokemon}:
-// Obtener el detalle de un pokemon en particular
-// Debe traer solo los datos pedidos en la ruta de detalle de pokemon
-// Tener en cuenta que tiene que funcionar tanto para un id de un pokemon existente en pokeapi o uno creado por ustedes
-
-//  GET /pokemons?name="...":
-// Obtener el pokemon que coincida exactamente con el nombre pasado como query parameter (Puede ser de pokeapi o creado por nosotros)
-// Si no existe ningún pokemon mostrar un mensaje adecuado
-
-//  POST /pokemons:
-// Recibe los datos recolectados desde el formulario controlado de la ruta de creación de pokemons por body
-// Crea un pokemon en la base de datos relacionado con sus tipos.
 
 //  GET /types:
 // Obtener todos los tipos de pokemons posibles
 // En una primera instancia deberán traerlos desde pokeapi y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
+
+

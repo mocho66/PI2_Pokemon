@@ -38,14 +38,14 @@ const getDbData = async () => {
     return dbData;
 };
 
-const allRecipes = async () => {
+const allPokemons = async () => {
     const api = await getApiData();
     const db = await getDbData();  
     const all = [api,db].flat();
     return all;
 };
 
-const getDiets = async () => {
+const getTypes = async () => {
     try { 
       const api = await getApiData();
       const alltypes = await api.map((a) => a.types);  // mapea y deja arrays de los typos
@@ -66,6 +66,6 @@ const getDiets = async () => {
 module.exports = {
   getApiData,
   getDbData,
-  allRecipes,
-  getDiets  
+  allPokemons,
+  getTypes  
 };

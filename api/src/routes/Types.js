@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-      const d = await Diet.findAll();
-      res.send(d);
+      const t = await Types.findAll();
+      res.send(t);
     } catch (e) {
       res.status(404).send({msg:"error"})
     }
