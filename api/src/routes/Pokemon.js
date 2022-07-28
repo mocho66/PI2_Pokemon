@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Recipe, Diet } = require('../db.js');
-const {allPokemons} = require('./GetFunctions.js');
+const { Pokemon, Type } = require('../db.js');
+const {getApiData, getDbData, allPokemons, getTypes} = require('./GetFunctions.js');
 
 // GET /pokemons:
 // Obtener un listado de los pokemons desde pokeapi.
@@ -22,7 +22,7 @@ router.get('/',async (req, res) => {
         const pokemonsFilterByName = pokemons.filter((r) =>
           r.name.toLowerCase() === name.toLowerCase());
 
-        pokemonsFilterByName.length   ? res.send(recipesFilterByName) 
+        pokemonsFilterByName.length   ? res.send(pokemonsFilterByName) 
                                       : res.status(404).send({ 
                     msg: "We not found any pokemon with that name, please try another one." });
       
@@ -80,7 +80,7 @@ router.post('/', async (req, res) => {
 
     // transformamos el arreglo de los tipos y corroboramos que al menos se cargo un tipo
     let arrType = []
-    types.map(e => arrType.push({ name: e }))
+    types?.map(e => arrType.push({ name: e }))
     if (!arrType.length) { return res.status(400).json({ info: `Choose at least one type` }) }
 
     // cargamos en nuevo pokemon a la BD
@@ -97,7 +97,7 @@ router.post('/', async (req, res) => {
 
     // cargamos los types para el nuevo pokemon relacionando las tablas
     for (i=0; i<arrType.length; i++) {
-      let typeDb = await Types.findAll({ where: { name: arrType[i].name } })
+      let typeDb = await Type.findAll({ where: { name: arrType[i].name } })
       newPokemon.addType(typeDb);
     }
     
