@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Pokemon, Type } = require('../db.js');
-const {getApiData, getDbData, allPokemons, getTypes} = require('./GetFunctions.js');
+const {allPokemons} = require('./GetFunctions.js');
 
 // GET /pokemons:
 // Obtener un listado de los pokemons desde pokeapi.
@@ -70,7 +70,7 @@ router.post('/', async (req, res) => {
     // corroboramos que esten todos los datos
     if (!name || !life || !attack || !defense || !speed || !height || !weight) {
       return res.status(400).json({
-          info: `Theres a missing value`
+          info: `There is a missing value`
       })
     }
     
