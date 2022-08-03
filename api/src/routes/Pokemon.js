@@ -85,7 +85,7 @@ router.post('/', async (req, res) => {
 
     // cargamos en nuevo pokemon a la BD
     const newPokemon = await Pokemon.create({
-      name, 
+      "name": name.toLowerCase(), 
       life,
       attack,
       defense,

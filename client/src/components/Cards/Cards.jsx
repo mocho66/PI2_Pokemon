@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import Card from '../Card/Card.jsx'
 import { getPokemons } from '../../store/actions'
+import './Cards.css'
 
 export default function Cards () {
     
@@ -12,14 +13,14 @@ export default function Cards () {
         dispatch(getPokemons())
     }, [])
     // console.log(pokemons)
-    return <div>
+    return <div className='cards'>
         {
             pokemons.map((pokemon) => { 
                 return <Card 
                     name = {pokemon.name}
                     id = {pokemon.id}
                     image = {pokemon.image}
-                    types = {pokemon.types} 
+                    types = {pokemon.Types} 
                 /> 
             })
         }

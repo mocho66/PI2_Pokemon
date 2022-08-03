@@ -4,16 +4,19 @@ const { Type, Pokemon } = require("../db");
 
 const getApiData = async () => {  
     try {
-      let pokeApi = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40&offset=0');
+      let pokeApi1 = await axios.get('https://pokeapi.co/api/v2/pokemon');
       
-      let pokeApiUrl = pokeApi.data.results?.map((el) => axios.get(el.url));
-
+      let pokeApi2 = await axios.get(pokeApi1.data.next);
+      
+      let pokeApi = [pokeApi1.data.results,pokeApi2.data.results].flat()
+      
+      let pokeApiUrl = pokeApi.map((el) => axios.get(el.url));
+      
       let pokeApiInfo = await axios.all(pokeApiUrl);
       
       let apiData = pokeApiInfo.map((el) => {
         let pokemon = el.data
-        let obj = {}
-        obj = {
+        let obj = {
           id: pokemon.id.toString(),
           name: pokemon.name.toLowerCase(),
           life: pokemon.stats[0].base_stat,
@@ -23,19 +26,19 @@ const getApiData = async () => {
           height: pokemon.height,
           weight: pokemon.weight,
           image: pokemon.sprites.front_default,
-          types: pokemon.types.map((t) => {
+          Types: pokemon.types.map((t) => {
               return { name: t.type.name };
             }),
           creat: false
         }
         return obj;
       })
-    
+      
       return apiData;
     
     } catch (e) { console.log(e); }
 };
-
+      
 const getDbData = async () => {
     const dbData = await Pokemon.findAll({
       include: {
@@ -56,7 +59,7 @@ const allPokemons = async () => {
 const getTypes = async () => {
     try { 
       const api = await getApiData();
-      const alltypes = await api.map((a) => a.types);  // mapea y deja arrays de los types
+      const alltypes = await api.map((a) => a.Types);  // mapea y deja arrays de los types
       const flatTypes = alltypes.flat(); // deja un solo array con todos los types (repetidos)
       const typesNames = flatTypes.map((n) => n.name)  
       const typesFinal = [...new Set(typesNames)]; // elimina los repetidos

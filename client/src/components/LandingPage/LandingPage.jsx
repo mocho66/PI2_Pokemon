@@ -1,5 +1,12 @@
+import React from 'react';
+import './LandingPage.css'
+import {Link} from 'react-router-dom';
+
+
 export default function LandingPage () {
     return <div>
-        Soy Landing Page
+        <Link to='/home'>
+            <h3>Welcome to Pokemon Wordl</h3>
+        </Link>
     </div>
 }

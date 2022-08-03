@@ -1,0 +1,25 @@
+.pokemonBox {
+    position: relative;
+    height: 17em;
+    width: 17em;
+    border-radius: 2em;
+    margin:2em;
+    background-color: rgba(68, 180, 83, 0.438);
+    box-shadow: 10px 5px 10px 0px rgba(34, 146, 7, 0.452);
+}
+
+.titlePokemon {
+    background-color: rgba(34, 28, 28, 0.788);
+    border-radius: 0.76em 0.76em 0 0;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 0 0 0 0.7em;
+}
+
+.imgBoxPoke {
+    filter: contrast(1.8);
+}
+
+.imgPoke {
+    height: 100px;
+}
