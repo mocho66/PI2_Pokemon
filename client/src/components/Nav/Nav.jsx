@@ -1,25 +1,70 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux";
-import { searchPokemon } from '../../store/actions'
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import { filterByCreate, filterByType, orderByAbc, orderByPower } from '../../store/actions'
+import SearchBar from '../SearchBar/SearchBar';
 
-export default function Nav () {
-    const [search, setSearch] = useState('');
+export default function Nav ({types, setOrder}) {
+    // const [current, setCurrent] = useState(1)
+    // const [order, setOrder] = useState("")
+
     const dispatch = useDispatch();
     
-    function onSubmit(e){
+    function handleOrderByAbc(e){
         e.preventDefault();
-        dispatch(searchPokemon(search));
+        dispatch(orderByAbc(e.target.value));
+        // setCurrent(1);
+        setOrder(`Ordenado by ${e.target.value}`)
     }
 
-    function onChange(e){
+    function handleOrderByPower(e){
         e.preventDefault();
-        setSearch(e.target.value)
+        dispatch(orderByPower(e.target.value));
+        // setCurrent(1);
+        setOrder(`Ordenado by ${e.target.value}`)
     }
 
+    function handleFilterType(e){
+        e.preventDefault();
+        dispatch(filterByType(e.target.value))
+        setOrder(`Filter by ${e.target.value}`)
+    }
+
+    function handleFilterCreate(e){
+        e.preventDefault();
+        dispatch(filterByCreate(e.target.value))
+        setOrder(`Filter by ${e.target.value}`) 
+    }
+    
     return <div>
-        <form onSubmit={onSubmit}>
-            <input type="text" onChange={onChange} value={search}/>
-            <input type="submit" value="Buscar" />
-        </form>  
+        <SearchBar/>
+        <div className='filters'>
+            <select className='filterAbc' onChange={(e) => handleOrderByAbc(e)}>
+                <option value="all">Alphabetical Order...</option>
+                <option value="asc">A to Z</option>
+                <option value="desc">Z to A</option>
+            </select>
+            <br/>
+            <select className='filterType' onChange={(e) => handleFilterType(e)}>
+                <option value="all">Type Filter...</option>
+                {
+                    types?.map( pt => {
+                        return <option value={pt.name} key={pt.id}>{pt.name}</option>
+                    })
+                }
+            </select>
+            <br/>
+            <select className='filterStrength' onChange={(e) => handleOrderByPower(e)}> 
+                <option value="all">Strength Order...</option>
+                <option value="powerfull">Powerfull</option>
+                <option value="weak">Weak</option>
+            </select>
+            <br/>
+            <select className='filterApi' onChange={(e) => handleFilterCreate(e)}>
+                <option value="pokes">Existent or Created Filter...</option>
+                <option value="api">Existent</option>
+                <option value="db">Created</option>
+            </select>
+            <br />
+        </div>
     </div>
 }

@@ -42,9 +42,8 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       defaultValue: "https://www.pngmart.com/files/12/Pokemon-Ash-Ketchum-PNG-Free-Download.png"
-      // imagen de pokebola "https://imagenpng.com/wp-content/uploads/2016/09/Pokebola-pokeball-png-0.png"
     },
-    creat: {
+    create: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true

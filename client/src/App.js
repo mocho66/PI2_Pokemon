@@ -8,31 +8,14 @@ import Create from './components/Create/Create';
 function App() {
   return (
     <div className="App">
-      
       <Routes>
-
-        <Route path="/" 
-          element={ <LandingPage /> }  
-        />
-        
-        <Route path="/home" 
-          element={ <Home /> }   
-        /> 
-        
-        <Route path="/pokemons/:id" 
-          element={ <CardDetail/> }
-        />
-
-        <Route path="/pokemons/create" 
-          element={ <Create /> }
-        />  
-        
+        <Route path="/" element={ <LandingPage /> } />
+        <Route path="/home" element={ <Home /> } /> 
+        <Route path="/pokemons/:id" element={ <CardDetail/> } />
+        <Route path="/pokemons/create" element={ <Create /> } />  
       </Routes>
-      
-      <CardDetail />
     </div>
   );
 }
-
+ 
 export default App;
-

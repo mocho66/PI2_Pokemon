@@ -16,10 +16,29 @@
     padding: 0 0 0 0.7em;
 }
 
-.imgBoxPoke {
+/* .imgBoxPoke {
     filter: contrast(1.8);
-}
+} */
 
 .imgPoke {
-    height: 100px;
+    -webkit-filter: drop-shadow(10px 10px 1px black);
+    filter: drop-shadow(10px 10px 1px black);
+}
+
+.types{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.type{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+    
 }
