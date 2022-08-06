@@ -13,8 +13,8 @@ const {allPokemons} = require('./GetFunctions.js');
 
 router.get('/',async (req, res) => { 
     try {
-      const { name } = req.query;
   
+      const { name } = req.query;
       const pokemons = await allPokemons();
       
       if (name) {
@@ -39,12 +39,13 @@ router.get('/',async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
+      
       const { id } = req.params;
       const pokemons = await allPokemons();
       
       if (id) {
       
-        const pokemonsById = pokemons.filter((p) => parseInt(p.id) === parseInt(id));
+        const pokemonsById = pokemons.filter((p) => (p.id) === (id));
         
         pokemonsById.length   ? res.send(pokemonsById)
                               : res.send({ msg: "Error does not exist, should enter a valid ID" });

@@ -1,9 +1,10 @@
-import { FILTER_CREATE, FILTER_TYPES, GET_POKEMONS, GET_TYPES, ORDER_BY_ABC, ORDER_BY_POWER, SEARCH_POKEMONS } from "../actions"
+import { FILTER_CREATE, FILTER_TYPES, GET_POKEMONS, GET_POKEMONS_DETAILS, 
+    GET_TYPES, ORDER_BY_ABC, ORDER_BY_POWER, RESET_DETAIL, SEARCH_POKEMONS, RESET_POKEMONS, POST_POKEMON } from "../actions"
 
 const initialState = {
     showPokemons: [], // de aqui renderizo / tambien lo que filtro u ordeno
     initialPokemons: [], // aqui gravo todo lo que traje en un inicio
-    filteredPokemons: [], 
+    detailPokemon: [], // detalles del pokemon
     types: []
 }
 
@@ -20,6 +21,25 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 initialPokemons: action.payload,
                 showPokemons: action.payload
+            }
+        
+        case RESET_POKEMONS: 
+        let rPokemons = state.initialPokemons;
+        return {
+            ...state,
+            showPokemons: rPokemons
+        }
+        
+        case GET_POKEMONS_DETAILS: 
+        return {
+            ...state,
+            detailPokemon: action.payload,
+        }
+
+        case RESET_DETAIL:
+            return {
+                ...state,
+                detailPokemon: action.payload
             }
 
         case SEARCH_POKEMONS:
@@ -97,6 +117,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 showPokemons: filCPokemons
+            }
+        
+        case POST_POKEMON:
+            return {
+                ...state,
             }
 
         default:

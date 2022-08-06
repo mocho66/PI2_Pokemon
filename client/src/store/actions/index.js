@@ -7,6 +7,10 @@ export const ORDER_BY_POWER = "ORDER_BY_POWER";
 export const GET_TYPES = "GET_TYPES";
 export const FILTER_TYPES = "FILTER_TYPES";
 export const FILTER_CREATE = "FILTER_CREATE";
+export const GET_POKEMONS_DETAILS = "GET_POKEMONS_DETAILS";
+export const RESET_DETAIL = "RESET_DETAIL";
+export const RESET_POKEMONS = "RESET_POKEMONS";
+export const POST_POKEMON = "POST_POKEMON";
 
 const api = "http://localhost:3001";
 
@@ -31,6 +35,37 @@ export function getPokemons() {
         .then(pokemons => {
             dispatch({
                 type: GET_POKEMONS,
+                payload: pokemons.data 
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+}
+
+export function postNewPoke() {
+    return function(dispatch) {
+        return axios.post(`${api}/pokemons`)
+        .then(result => {
+            console.log(result);
+            dispatch({
+                type: POST_POKEMON,
+                payload: result.msj 
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+}
+
+export function getDetails(id) {
+    return function(dispatch) {
+        return axios.get(`${api}/pokemons/${id}`)
+        .then(pokemons => {
+            dispatch({
+                type: GET_POKEMONS_DETAILS,
                 payload: pokemons.data 
             })
         })
@@ -71,6 +106,20 @@ export function filterByType (payload) {
 export function filterByCreate (payload) { 
     return {
         type: FILTER_CREATE,
+        payload
+    }
+}
+
+export function resetPokemonDetail (payload) { 
+    return {
+        type: RESET_DETAIL,
+        payload
+    }
+}
+
+export function resetPokemons (payload) { 
+    return {
+        type: RESET_POKEMONS,
         payload
     }
 }
