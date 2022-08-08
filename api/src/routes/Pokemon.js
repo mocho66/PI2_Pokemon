@@ -74,14 +74,14 @@ router.post('/', async (req, res) => {
           info: `There is a missing value`
       })
     }
-    
+
     // corroboramos que no se cargo antes un pokemon con el mismo nombre
     const exists = await Pokemon.findOne({ where: { name: req.body.name } })
     if (exists) return res.json({ info: "This pokemons already exists!" });
 
     // transformamos el arreglo de los tipos y corroboramos que al menos se cargo un tipo
     let arrType = []
-    types?.map(e => arrType.push({ name: e }))
+    types?.map(t => arrType.push({ name: t }))
     if (!arrType.length) { return res.status(400).json({ info: `Choose at least one type` }) }
 
     // cargamos en nuevo pokemon a la BD

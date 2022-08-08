@@ -2,35 +2,35 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import { filterByCreate, filterByType, orderByAbc, orderByPower } from '../../store/actions'
 
-export default function Nav ({types, setOrder, setCurrent}) {
+export default function Nav ({types, setOrder, setCurrentPage}) {
        
     const dispatch = useDispatch();
     
     function handleOrderByAbc(e){
         e.preventDefault();
         dispatch(orderByAbc(e.target.value));
-        setCurrent(1);
+        setCurrentPage(1);
         setOrder(`Ordenado by ${e.target.value}`)
     }
 
     function handleOrderByPower(e){
         e.preventDefault();
         dispatch(orderByPower(e.target.value));
-        setCurrent(1);
+        setCurrentPage(1);
         setOrder(`Ordenado by ${e.target.value}`)
     }
 
     function handleFilterType(e){
         e.preventDefault();
         dispatch(filterByType(e.target.value))
-        setCurrent(1);
+        setCurrentPage(1);
         setOrder(`Filter by ${e.target.value}`)
     }
 
     function handleFilterCreate(e){
         e.preventDefault();
         dispatch(filterByCreate(e.target.value))
-        setCurrent(1);
+        setCurrentPage(1);
         setOrder(`Filter by ${e.target.value}`) 
     }
     

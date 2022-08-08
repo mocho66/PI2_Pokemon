@@ -44,19 +44,14 @@ export function getPokemons() {
     }
 }
 
-export function postNewPoke() {
+export function postNewPoke(payload) {
     return function(dispatch) {
-        return axios.post(`${api}/pokemons`)
-        .then(result => {
-            console.log(result);
-            dispatch({
-                type: POST_POKEMON,
-                payload: result.msj 
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        const newPokeResult = axios.post(`${api}/pokemons`,payload)
+        dispatch({
+            type: POST_POKEMON,
+            payload
+        })    
+        return newPokeResult;
     }
 }
 

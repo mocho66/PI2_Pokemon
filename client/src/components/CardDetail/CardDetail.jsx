@@ -39,8 +39,8 @@ export default function CardDetail() {
 
                     <div className="centerDetails">
                         <h1 className="pkname">Pokemon: {pokemon[0].name.toUpperCase()}</h1>
-                        <img className="pkimg" src={pokemon[0].image} alt="PokeImage" height="250px" width="250px" />
                         <img className="pkimg" src={pokemon[0].image2} alt="PokeImage" height="250px" width="250px" />
+                        <img className="pkimg" src={pokemon[0].image} alt="PokeImage" height="250px" width="250px" />
                         <img className="pkimg" src={pokemon[0].image3} alt="PokeImage" height="250px" width="250px" />
                                          
                     </div>
