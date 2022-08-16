@@ -1,6 +1,7 @@
 .backgroundHome {
     background-image: url("../../img/fondoHome.png");
     background-repeat: repeat;
+    /* height: 100hv; */
     /* overflow-y: hidden; */
 }
 
@@ -57,4 +58,9 @@
 .footer {
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
+}
+
+.msgCategory {
+    color: rgb(254, 249, 0);
+    padding-bottom: 32px;
 }

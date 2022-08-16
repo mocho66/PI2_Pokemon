@@ -7,7 +7,7 @@ export default function Card ({name, id, image, types, create}) {
         <h3 className='titlePokemon' text-decoration="none">{name}</h3> 
         <Link to={`/pokemons/${id}`}> 
             <div className='imgBoxPoke'>
-                <img className='imgPoke' src={image} alt="PokeImage not found" height="140px" width="160px"/> {/**/}
+                <img className='imgPoke' src={image} alt="PokeImage not found" height="140px" width="160px"/>
             </div>
         </Link>
         <div className='types'>

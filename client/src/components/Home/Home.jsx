@@ -55,7 +55,7 @@ export default function Home () {
                 ? allPokemons[0].msg === "no pokemons"  
                     ? <div>
                         <img src={notPoke} alt="0 DB pokemons" height="379px"/>
-                        <h2>No pokemon in this category, please try another</h2>
+                        <h2 className="msgCategory">No pokemon in this category, please try another</h2>
                     </div>
                     : <Cards pokemons={pokePage}/>
                 : <div className='loadingCountainer'>

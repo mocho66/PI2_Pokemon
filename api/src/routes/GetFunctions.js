@@ -15,9 +15,9 @@ const getApiData = async () => {
       
       let pokeApiInfo = await axios.all(pokeApiUrl);
       
-      //-----//
+      // ----- //
       // let pokeApiInfo = api;
-      //-----//
+      // ----- //
       
       let apiData = pokeApiInfo.map((el) => {
         let pokemon = el.data
@@ -68,11 +68,7 @@ const getTypes = async () => {
       
       let pokeTypes = await axios.get('https://pokeapi.co/api/v2/type');
 
-      // const api = await getApiData();
-      // const alltypes = await api.map((a) => a.Types);  // mapea y deja arrays de los types
-      // const flatTypes = alltypes.flat(); // deja un solo array con todos los types (repetidos)
       const typesFinal = pokeTypes.data.results.map((n) => n.name)  
-      // const typesFinal = [...new Set(typesNames)]; // elimina los repetidos
          
       typesFinal.forEach(async (t) => {
         await Type.findOrCreate({ 
@@ -80,7 +76,7 @@ const getTypes = async () => {
         });
       });
       const allTypes = await Type.findAll();
-      // console.log(allTypes);
+      
       return allTypes;
     
     } catch (error) {

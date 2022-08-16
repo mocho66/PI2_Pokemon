@@ -136,56 +136,51 @@ router.delete("/delete/:id", async (req, res) => {
 
 // ----- ruta para editar un pokemon creado ----- //
 
-router.put('/:id', async (req, res) => {
-  const {name, life, attack, defense, speed, height, weight, types, image} = req.body;
-  const id = req.params.id
-
-  // cargo la actualizacion en el pokemon de id pasado por params y le cargo todos los 
-  // datos nuevos que se pasan por body
-
-  await Pokemon.update({
-    name, 
-    life, 
-    attack, 
-    defense, 
-    speed, 
-    height, 
-    weight, 
-    image
-  }, {
-    where: {
-      id: id,
+router.put('/update/:id', async (req, res) => {
+  try {
+    
+    const {name, life, attack, defense, speed, height, weight, types, image} = req.body;
+    const id = req.params.id
+  
+    await Pokemon.update({
+      name, 
+      life, 
+      attack, 
+      defense, 
+      speed, 
+      height, 
+      weight, 
+      image,
+    }, {
+      where: {
+        id: id,
+      }
+    });
+  
+    const pokemon_type = await Pokemon.findByPk(id, {
+        include: [{
+            model: Type,
+            through: {
+                attributtes: [name, id],
+            }
+        }]
+    });
+  
+    let arrType = []
+    
+    types?.map(t => arrType.push({ name: t }))
+    
+    if (!arrType.length) { return res.status(400).json({ msg: `Choose at least one type` }) }
+  
+    for (i=0; i<arrType.length; i++) {
+      let typeDb = await Type.findAll({ where: { name: arrType[i].name } })
+      if (i===0) { await pokemon_type.setTypes(typeDb) }
+      else { await pokemon_type.addTypes(typeDb) }
     }
-  });
-
-  // busco el pokemon recien actualizado en la bd junto con los datos de la bd Types
-
-  const pokemon_type = await Pokemon.findByPk(id, {
-      include: [{
-          model: Type,
-          through: {
-              attributtes: [name, id],
-          }
-      }]
-  });
-
-  // busco los types que correspondan en la bd Types segun lo que me pasaron por body
-  // enlazo el pokemon buscado/actualizado con los types que corrsponden y buscamos anteriormente
+    
+    return res.status(200).json("Pokemon updated successfully");
   
-  let arrType = []
-  
-  types?.map(t => arrType.push({ name: t }))
-  
-  if (!arrType.length) { return res.status(400).json({ msg: `Choose at least one type` }) }
-
-  for (i=0; i<arrType.length; i++) {
-    let typeDb = await Type.findAll({ where: { name: arrType[i].name } })
-    await pokemon_type.setTypes(typeDb)
-  }
-  
-  console.log(pokemon_type);
-  
-  return res.status(200).json("Pokemon updated successfully");
+  } catch (e) { console.log(e); }
 });
   
 module.exports = router;
