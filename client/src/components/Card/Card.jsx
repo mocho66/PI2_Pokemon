@@ -1,8 +1,9 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './Card.css'
 
-export default function Card ({name, id, image, types, create}) {
-
+export default function Card ({name, id, image, types}) {
+    
     return <div className='pokemonBox'>
         <h3 className='titlePokemon' text-decoration="none">{name}</h3> 
         <Link to={`/pokemons/${id}`}> 
@@ -17,5 +18,6 @@ export default function Card ({name, id, image, types, create}) {
             }
         </div>
     </div>
+
 }
 

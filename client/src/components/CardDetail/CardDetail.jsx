@@ -11,14 +11,12 @@ export default function CardDetail() {
     const dispatch = useDispatch();
     const pokeID = useParams();
 
-    dispatch(emptyShowPokemons());
-    
-    let pokemon = useSelector ((state) => state.detailPokemon)
-        
     useEffect(() => {
+        dispatch(emptyShowPokemons());
         dispatch(getDetails(pokeID.id))
     }, [dispatch])
-
+    
+    let pokemon = useSelector ((state) => state.detailPokemon)
 
     return (
         <div className="backgroundDetails">

@@ -282,15 +282,54 @@
 }
 
 .inputOut {
+    cursor: pointer;
     width: 85px;
     border-radius: 50px;
     margin: 1px 0 1px 0;
-    background-color: rgba(240, 238, 125, 0.89);
+    background-color: rgba(243, 242, 188, 0.89);
 }
 
 .inputIn {
+    cursor: pointer;
     width: 85px;
     border-radius: 50px;
     margin: 1px 0 1px 0;
     background-color: rgb(255, 199, 0)
 }
+
+.inputOut:hover {
+    cursor: pointer;
+    width: 85px;
+    border-radius: 50px;
+    margin: 1px 0 1px 0;
+    color: white;
+    background-color: rgb(9, 2, 109);
+}
+
+.inputIn:hover {
+    cursor: pointer;
+    width: 85px;
+    border-radius: 50px;
+    margin: 1px 0 1px 0;
+    color: white;
+    background-color: rgba(255, 200, 0, 0.623);
+}
+
+.inputOut:active {
+    cursor: pointer;
+    width: 85px;
+    border-radius: 50px;
+    margin: 1px 0 1px 0;
+    color: white;
+    background-color: rgba(9, 2, 109, 0.363);
+}
+
+.inputIn:active {
+    cursor: pointer;
+    width: 85px;
+    border-radius: 50px;
+    margin: 1px 0 1px 0;
+    color: white;
+    background-color: rgb(9, 2, 109, 0.363);
+}
+
