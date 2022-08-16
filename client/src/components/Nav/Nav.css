@@ -1,0 +1,58 @@
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filterAbc {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    border-radius: 15px;
+    margin: 5px;
+}
+.option {
+    background-color: rgb(0, 3, 43);
+    border: transparent;
+}
+.option0 {
+    background-color: rgba(0, 3, 43);
+    color: rgb(82, 82, 82);
+    font-style: oblique;
+    border: transparent;
+}
+/*------------------*/
+
+/*------------------*/
+
+.filterType {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.filterStrength {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.filterApi {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    border-radius: 15px;
+    margin: 5px;
+}

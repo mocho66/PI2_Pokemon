@@ -1,0 +1,40 @@
+.searchBar {
+    margin: 5px;
+}
+
+.textSB {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    -webkit-border-radius: 50px 0px 0px 50px;
+    border-radius: 50px 0px 0px 50px;
+    /* margin: 0.1em 0px 0px 0.1em; */
+    padding: 0.5em;
+}
+
+.submitSB {
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(1, 14, 195, 0.1);
+    border-color: rgba(254, 249, 0);
+    -webkit-border-radius: 0px 50px 50px 0px;
+    border-radius: 0px 50px 50px 0px;
+    /* margin: 0px 0.1em 0.1em 0px; */
+    padding: 0.5em;
+}
+
+.submitSB:hover {
+    cursor: pointer;
+    font-size: 15px;
+    color: rgba(254, 249, 0);
+    font-weight: bold;
+    background-color: rgba(254, 249, 0, 0.3);
+    border-color: rgba(254, 249, 0);
+    -webkit-border-radius: 0px 50px 50px 0px;
+    border-radius: 0px 50px 50px 0px;
+    /* margin: 0px 0.1em 0.1em 0px; */
+    padding: 0.5em;
+}

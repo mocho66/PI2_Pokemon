@@ -2,4 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-  }
+    /* overflow-x: hidden; */
+    /* overflow-y: scroll; */
+}
+
+.cards4 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 10.4%;
+}

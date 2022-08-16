@@ -1,24 +1,36 @@
 .pokemonBox {
-    position: relative;
     height: 17em;
     width: 17em;
-    border-radius: 2em;
+    border-radius: 50px;
     margin:2em;
-    background-color: rgba(68, 180, 83, 0.438);
-    box-shadow: 10px 5px 10px 0px rgba(34, 146, 7, 0.452);
+    background-color: rgba(254, 249, 0, 0.438);
+    box-shadow: 10px 5px 10px 0px rgba(3, 5, 158, 0.486);
+}
+
+.pokemonBox:hover {
+    height: 17em;
+    width: 17em;
+    border-radius: 50px;
+    margin:2em;
+    background-color: rgba(254, 249, 0, 0.438);
+    box-shadow: 10px 5px 10px 0px rgba(0, 0, 0);
 }
 
 .titlePokemon {
-    background-color: rgba(34, 28, 28, 0.788);
-    border-radius: 0.76em 0.76em 0 0;
-    color: rgb(255, 255, 255);
+    position: relative;
+    top: 0%;
+    background-color: rgba(254, 249, 0, 0.4);
+    border-radius: 50px 50px 0 0;
+    color: rgb(0, 7, 109);
     text-align: center;
-    padding: 0 0 0 0.7em;
+    padding: 0;
+    font-size: 25px;
+
 }
 
-/* .imgBoxPoke {
-    filter: contrast(1.8);
-} */
+.imgBoxPoke {
+    filter: contrast(1.5);
+}
 
 .imgPoke {
     -webkit-filter: drop-shadow(10px 10px 1px black);
@@ -34,7 +46,7 @@
     margin-top: 5px;
 }
 
-.type{
+.type {
     display: flex;
     justify-content: center;
     margin: 5px;

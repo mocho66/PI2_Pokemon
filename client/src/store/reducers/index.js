@@ -1,5 +1,6 @@
 import { FILTER_CREATE, FILTER_TYPES, GET_POKEMONS, GET_POKEMONS_DETAILS, 
-    GET_TYPES, ORDER_BY_ABC, ORDER_BY_POWER, RESET_DETAIL, SEARCH_POKEMONS, RESET_POKEMONS, POST_POKEMON } from "../actions"
+    GET_TYPES, ORDER_BY_ABC, ORDER_BY_POWER, RESET_DETAIL, SEARCH_POKEMONS, 
+    RESET_POKEMONS, POST_POKEMON, EMPTY_SHOWPOKES } from "../actions"
 
 const initialState = {
     showPokemons: [], // de aqui renderizo / tambien lo que filtro u ordeno
@@ -29,6 +30,12 @@ function rootReducer(state = initialState, action) {
             ...state,
             showPokemons: rPokemons
         }
+
+        case EMPTY_SHOWPOKES: 
+        return {
+            ...state,
+            showPokemons: action.payload
+        }
         
         case GET_POKEMONS_DETAILS: 
         return {
@@ -43,11 +50,11 @@ function rootReducer(state = initialState, action) {
             }
 
         case SEARCH_POKEMONS:
-            let allSPokemons = state.initialPokemons;
-            let pokemonSearch = state.showPokemons.filter(p => p.name === action.payload);
+            let notNamePokemon = [{name: "not found"}]; 
+            let pokemonSearch = state.initialPokemons.filter(p => p.name === action.payload);
             return {
                 ...state,
-                showPokemons: pokemonSearch.length  ? pokemonSearch : allSPokemons
+                showPokemons: pokemonSearch.length  ? pokemonSearch : notNamePokemon
             }
 
         case ORDER_BY_ABC:
@@ -103,7 +110,8 @@ function rootReducer(state = initialState, action) {
         case FILTER_TYPES:
             let allTPokemons = state.initialPokemons;
             let filTPokemons = allTPokemons.filter( pt => pt.Types.map( p => p.name ).includes( action.payload ))
-            const filterPokemons = action.payload === "all" ? allTPokemons : filTPokemons
+            let filterPokemons = action.payload === "all" ? allTPokemons : filTPokemons
+            if (!filterPokemons.length) { filterPokemons = [{msg: "no pokemons"}]}
             return {
                 ...state,
                 showPokemons: filterPokemons
@@ -114,6 +122,7 @@ function rootReducer(state = initialState, action) {
             if (action.payload === "all") { filCPokemons = state.initialPokemons; };
             if (action.payload === "api") { filCPokemons = state.initialPokemons.filter(p => p.create === false) };
             if (action.payload === "db") { filCPokemons = state.initialPokemons.filter(p => p.create === true) };
+            if (!filCPokemons.length) { filCPokemons = [{msg: "no pokemons"}]} 
             return {
                 ...state,
                 showPokemons: filCPokemons

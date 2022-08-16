@@ -1,0 +1,101 @@
+.background {
+    height: 100%;
+    width: 100%;
+    background-image: url('../../img/fondoLandingPage.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    position: fixed;
+}
+
+.containerBar {
+    height: 70px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    top: 0px;
+}
+
+.button {
+    color: rgb(254, 249, 0);
+    font-size: 50px;
+    line-height: 26px; 
+    padding: 8px; 
+    border-radius: 50px; 
+    font-family: Georgia, serif; 
+    font-weight: 700; 
+    font-style: normal; 
+    font-variant: small-caps; 
+    text-transform: capitalize;
+    background-color: rgb(1, 14, 195);
+    box-shadow: rgb(0, 0, 0) 5px -1px 15px 5px;
+    border: 5px solid rgb(254, 249, 0);
+}
+   
+.button:hover{
+    cursor: pointer;
+    color: rgb(1, 14, 195);
+    background:  rgb(255, 251, 0);
+    border: 5px solid rgb(1, 14, 195);
+}
+.button:active {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background:  rgb(255, 251, 0);
+    border: 5px solid rgb(1, 14, 195); 
+    box-shadow: rgb(255, 255, 255) 5px -1px 15px 5px;
+}
+
+.containerButton {
+    position: relative;
+    top: 60%;
+    left: 31%;
+}
+
+.Text {
+    color: rgb(255, 255, 255);
+    font-size: large;
+    font-weight: 100;
+    text-shadow: 25px 10px 25px rgba(255, 255, 255, 0.75), 25px 10px 25px rgba(255, 255, 255, 0.75);
+}
+
+.Wap{
+    cursor: pointer;
+    margin: 7px;
+    border-radius: 50px;
+    background-image: url("../../img/wapicon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.Git{
+    margin: 7px;
+    cursor: pointer;
+    border-radius: 50px;
+    border-color: black;
+    background-image: url("../../img/giticon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.LinkedIn{
+    margin: 6px;
+    cursor: pointer;
+    border-radius: 50px;
+    background-image: url("../../img/linkedinicon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}

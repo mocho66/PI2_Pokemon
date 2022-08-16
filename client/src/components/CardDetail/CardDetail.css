@@ -1,0 +1,194 @@
+.backgroundDetails{
+    background-image: url("../../img/fondoHome.png");
+    background-repeat: repeat;
+    overflow: hidden;
+    height: 100vh;
+    align-content: center;
+}
+
+.CDtitle {
+    font-size: 20px;
+    width: 10em;
+    color: rgba(1, 14, 195);
+    font-weight: bold;
+    background-color: rgba(255, 199, 0);
+    border-color: rgba(1, 14, 195);
+    border-radius: 50px;
+    margin: 15px;
+    padding: 10px;
+    /* padding: 1em; */
+}
+.CDtitle:hover {
+    cursor: pointer;
+    width: 10em;
+    color: rgb(255, 199, 0);
+    font-weight: bold;
+    background-color:  rgb(1, 14, 195);
+    border-color: rgb(255, 199, 0);
+    border-radius: 50px;
+    margin: 15px;
+}
+
+.noPoke {
+    color: rgb(254, 249, 0);
+    font-style: italic;    
+}
+
+.pokeDetails{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(0, 0, 0, 0.7);
+    height: 100%;
+    padding: 0.5%;
+}
+
+.pokeCard {
+    padding: 2px 0 3px 19%;
+}
+
+.name {
+    position: absolute;
+    left: 43.5%;
+    top: 12%;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 35px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: italic;
+    font-variant: small-caps;
+    text-transform: none;
+    text-shadow: 2px 2px 4px #d670eb;
+}
+
+.pkimg1 {
+    position: absolute;
+    left: 42%;
+    top: 25%;
+    filter:saturate(0.8)
+}
+
+.lifeBox {
+    font-family: Impact, Charcoal, sans-serif;
+    font-variant: small-caps;
+    border-radius: 10px;
+    width: 70px;
+    background-color: rgb(219, 40, 45, 0.6);
+    position: absolute;
+    left: 40%;
+    top: 62%;
+    display: block;
+    padding: 0 0.5% 0 0.5%;
+}
+
+.valueBox {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 5%;
+}
+
+.attackBox {
+    font-family: Impact, Charcoal, sans-serif;
+    font-variant: small-caps;
+    border-radius: 10px;
+    width: 70px;
+    background-color: rgb(241, 230, 140, 0.6);
+    position: absolute;
+    left: 47.75%;
+    top: 62%;
+    display: block;
+    padding: 0 0.5% 0 0.5%;
+}
+
+.defenseBox {
+    font-family: Impact, Charcoal, sans-serif;
+    font-variant: small-caps;
+    border-radius: 10px;
+    width: 70px;
+    background-color: rgb(118, 183, 91, 0.6);
+    position: absolute;
+    left: 55.5%;
+    top: 62%;
+    display: block;
+    padding: 0 0.5% 0 0.5%;
+}
+
+.idBox {
+    font-family: Impact, Charcoal, sans-serif;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: italic;
+    font-variant: small-caps;
+    text-transform: none;
+    text-shadow: 2px 2px 4px #d670eb;
+}
+
+.textId {
+    position: absolute;
+    font-size: 22px;
+    left: 44.7%;
+    top: 78%;
+}
+.valueId {
+    position: absolute;
+    font-size: 14px;
+    left: 39.8%;
+    top: 85%;
+}
+
+.morePokemonData {
+    position: absolute;
+    padding: 0;
+    right: 0%;
+    font-family: Impact, Charcoal, sans-serif;
+    /* letter-spacing: 2px; */
+    word-spacing: 2px;
+    color: rgb(255, 199, 0);
+    /* font-weight: 400; */
+    font-style: italic;
+    font-variant: small-caps;
+    text-transform: none;
+    text-shadow: 2px 2px 4px rgb(35, 89, 207);
+    font-size: 30px;
+    text-align: center;
+    /* background-color: aliceblue; */
+    width: 450px;
+
+}
+
+.pkimg2 {
+    position: absolute;
+    left: 10%;
+    top: 13%;
+}
+
+.pkimg3 {
+    position: absolute;
+    left: 10%;
+    top: 55%;
+    /* filter:opacity(1); */
+    filter:brightness(0.9);
+}
+
+.typesText {
+    width: 450px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.typeName {
+    padding: 0 15px 0 0;
+    /* text-align: right; */
+}
+
+/* .cardImg {
+    position: absolute;
+} */

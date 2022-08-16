@@ -1,7 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { resetPokemons } from '../../store/actions';
+import './Pagination.css'
 
-export default function Pagination ({ pokeNumbers, PokeXPage, paginado }) {
-    const pageNumber = [];
+export default function Pagination ({ pokeNumbers, PokeXPage, paginado, currentPage}) {
+    const dispatch = useDispatch();
+
+	const pageNumber = [];
 
 	for (let i = 1; i <= Math.ceil(pokeNumbers / PokeXPage); i++) {
 		pageNumber.push(i);
@@ -9,17 +14,25 @@ export default function Pagination ({ pokeNumbers, PokeXPage, paginado }) {
 
     return (
         <nav className="nave" >
+			<div className='resetBox'>
+				<button className='resetButton' onClick={()=> dispatch(resetPokemons())}>RESET POKEMONS</button>
+			</div>
+			<div>
 				<ul>
-					{pageNumber &&
+					{
+						pageNumber &&
 						pageNumber.map((n) => (
-							<li>
-								{/* <span onClick={() => paginado(n)}>{n}</span> */}
-								<button onClick={() => paginado(n)}>{n}</button>
-							</li>
-						))}
+							<button className={currentPage === n ? 'buttonS':'buttonP'} 
+									onClick={() => paginado(n)}>{n}</button>
+						))
+					}
 				</ul>
-			</nav>
-  )
+			</div>
+		</nav>
+	)
 }
+	
+				
+							
 
 

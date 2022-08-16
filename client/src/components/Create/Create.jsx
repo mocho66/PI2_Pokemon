@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postNewPoke } from '../../store/actions';
+import { emptyShowPokemons, getPokemons, getTypes, postNewPoke } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import pokeLogo from "../../img/pokeLogo.png";
+// import WRimg from "../../img/waitingResponse.gif";
 import './Create.css';
 
 export default function Create() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const allTypes = useSelector((state) => state.types);
+    const allPokemons = useSelector((state) => state.initialPokemons)
     const [errors, setErrors] = useState({});
+    const [types, setTypes] = useState([]);
+
+    useEffect ( () => {
+        dispatch(getTypes())
+        dispatch(emptyShowPokemons())
+        // dispatch(getPokemons())
+    }, [dispatch] )
 
     const [ input, setInput ] = useState({
         name: "",
@@ -22,51 +32,67 @@ export default function Create() {
         image: ""
     });
 
+    // console.log(allPokemons)
+
     function validation(input) {
         let errors = {};
         if(!input.name || typeof input.name !== "string") {   
-            errors.name = "How should we call this Pokemon?";
-        } else if (!input.types) {
-            errors.types = "Select from 1 to 3 types";
-        } else if (!input.image || typeof input.image !== "string" ) {
-            errors.image = "Invisibility power! Please insert a valid url image";
-        }
+            errors.name = "How should we call this Pokemon?"; } 
+            else if (allPokemons.map(p => p.name).includes(input.name.toLowerCase())) {
+                errors.name = "This pokemon name already exists"; } 
+        if (!input.types.length) {
+            errors.types = "Select from 1 to 3 types"; } 
+        if (!input.image || typeof input.image !== "string" ) {
+            errors.image = "Please insert a valid url image"; }
         return errors;
     }
 
     function handleChange(e) {
+        e.preventDefault();
+        // console.log({[e.target.name] : e.target.value})
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
         setErrors(validation({
             ...input,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
+            types: types
         }))
-        // console.log(input)
+        console.log(errors)
     }
 
-    function handleSelect(e){
-        setInput({
-            ...input,
-            types: [...input.types, e.target.value]
-        })
+    let handleTypes = (e) => {
+        e.preventDefault();
+        if (!types.length) {
+            setTypes([e.target.value])
+            setErrors(validation({...input, types: [e.target.value]}))
+        } else if (!types.includes(e.target.value)) {
+            if (types.length === 3) {
+                types.pop()
+                setTypes([...types, e.target.value]) 
+                setErrors(validation({...input, types: types}))    
+            } 
+            setTypes([...types, e.target.value])
+            setErrors(validation({...input, types: types}))
+            } else if (types.includes(e.target.value)) {
+                setTypes(types.filter(t => t !== e.target.value))
+                setErrors(validation({...input, types: types}))
+            } 
     }
-
+        
     function handleSubmit(e){
-        console.log(input);
+        e.preventDefault();
         if(!input.name){
-            e.preventDefault();
             return alert("Can't create a Pokemon without a name")
-        } else if (!input.types.length) {
-            e.preventDefault();
+        } else if (!types.length) {
             return alert("Please select at least one pokemon type")
-        } else if (!input.image) {
-            e.preventDefault();
+        } else if (!input.image || input.image.length > 255) {
             return alert("Please send a valid url image")
         }
+        input.types = types;
         dispatch(postNewPoke(input))
-        alert("Pokemon created succesfully!!")
+        window.setTimeout(alert("Pokemon created successfully!!"), 2000);
         setInput({
             name: "",
             life: 50,
@@ -80,144 +106,114 @@ export default function Create() {
         })
         navigate('/home')
     }
+              
 
-    let handleDelete  = (type) => {
-        setInput({
-            ...input,
-            types: input.types.filter( pt => pt !== type)
-        })
-    }
-    
     return (
-        <div className='divForm'>
-            <Link className="title" to="/home">
-                <button className="volver">Home</button>
-            </Link>
-            
+        <div className='createPage'>
             <div className='title-submit'>
-                <h2 className='createTitle'>Pokemon Creation:</h2>
-                <button id='submit' className='titleCreate' type='submit' onClick={(e) => handleSubmit(e)}>Ready!</button>
+                <Link to="/home">
+                    <button className="backToHome">Home</button>
+                </Link>
+                <div className='pTitle'>
+                    <img className='logo' src={pokeLogo} alt="pokeLogo" />
+                    <h2 className='createTitle'>Creator</h2>
+                </div>
+                <button id='submit' className='buttonCreate' type='submit' onClick={(e) => handleSubmit(e)}>Ready!</button>
             </div>
+            
                 
             <form className='form' onSubmit={(e) => handleSubmit(e)}>
                     
                 <div className='leftCreate'>
-                    <div className='range'>
-                        <label className='textCreate'>Life:</label>
-                        <input type="range" min="0" max="100" id='1' value={parseInt(input.life)} name="life" onChange={(e) => handleChange(e)} />
-                        <h5 className='textCreate'>{input.life}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.life}</span>
-                            )
-                        }
+                    <div>
+                        <label className='textCreate'>Name</label> <br />
+                        <input type="text" id='7' value={input.name} name="name" placeholder='Enter your pokeName...' onChange={(e) => handleChange(e)} />
+                        <div className='errorBox'>
+                            {
+                                errors.name && (
+                                    <p className='errors'>{errors.name}</p>
+                                )
+                            }
+                        </div>
                     </div>
-                    <br />
-                    <div className='range'>
-                        <label className='textCreate'>Attack:</label>
-                        <input type="range" min="0" max="100" id='2' value={parseInt(input.attack)} name="attack" onChange={(e) => handleChange(e)} />
-                        <h5 className='textCreate'>{input.attack}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.attack}</span>
-                            )
-                        }
-                    </div>
-                    <br />
-                    <div className='range'>
-                        <label className='textCreate'>Defense:</label>
-                        <input type="range" min="0" max="100" id='3' value={parseInt(input.defense)} name="defense" onChange={(e) => handleChange(e)} />
-                        <h5 className='textCreate'>{input.defense}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.defense}</span>
-                            )
-                        }
+
+                    <div>
+                        <label className='textCreate'>Image</label> <br />
+                        <input type="url" id='9' value={input.image} name="image" placeholder='Image URL...' onChange={(e) => handleChange(e)} /> <br />
+                        <div className='errorBox'>
+                            {
+                                errors.image && (
+                                    <span className='errors'>{errors.image}</span>
+                                )
+                            }
+                        </div>
+                        <br />
+                        <div className='divImg'>
+                            <img className='imgDemo' src={input.image?input.image:"https://cdn-icons-png.flaticon.com/512/528/528098.png"} alt="PokePic" width="150px" height="150px" />
+                        </div>
                     </div>
                 </div>
 
                 <div className='center'>
                     <div className='range'>
-                        <label className='textCreate'>Speed:</label>
-                        <input type="range" min="0" max="100" id='4' value={parseInt(input.speed)} name="speed" onChange={(e) => handleChange(e)} />
+                        <label className='textCreate'>Life</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='1' value={parseInt(input.life)} name="life" onChange={(e) => handleChange(e)} />
+                        <h5 className='textCreate'>{input.life}</h5>
+                    </div>
+                    <br />
+                    <div className='range'>
+                        <label className='textCreate'>Attack</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='2' value={parseInt(input.attack)} name="attack" onChange={(e) => handleChange(e)} />
+                        <h5 className='textCreate'>{input.attack}</h5>
+                    </div>
+                    <br />
+                    <div className='range'>
+                        <label className='textCreate'>Defense</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='3' value={parseInt(input.defense)} name="defense" onChange={(e) => handleChange(e)} />
+                        <h5 className='textCreate'>{input.defense}</h5>
+                    </div>
+                    <br />
+                    <div className='range'>
+                        <label className='textCreate'>Speed</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='4' value={parseInt(input.speed)} name="speed" onChange={(e) => handleChange(e)} />
                         <h5 className='textCreate'>{input.speed}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.speed}</span>
-                            )
-                        }
                     </div>
                     <br />
                     <div className='range'>
-                        <label className='textCreate'>Height:</label>
-                        <input type="range" min="0" max="100" id='5' value={parseInt(input.height)} name="height" onChange={(e) => handleChange(e)} />
+                        <label className='textCreate'>Height</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='5' value={parseInt(input.height)} name="height" onChange={(e) => handleChange(e)} />
                         <h5 className='textCreate'>{input.height}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.height}</span>
-                            )
-                        }
                     </div>
                     <br />
                     <div className='range'>
-                        <label className='textCreate'>Weight:</label>
-                        <input type="range" min="0" max="100" id='6' value={parseInt(input.weight)} name="weight" onChange={(e) => handleChange(e)} />
+                        <label className='textCreate'>Weight</label>
+                        <input className='rangeInput' type="range" min="0" max="100" id='6' value={parseInt(input.weight)} name="weight" onChange={(e) => handleChange(e)} />
                         <h5 className='textCreate'>{input.weight}</h5>
-                        {
-                            errors.name && (
-                                <span className='errors'>{errors.weight}</span>
-                            )
-                        }
                     </div>
                 </div>
 
                 <div className='rightCreate'>
-                    <div>
-                        <label className='textCreate'>Name:</label>
-                        <input type="text" id='7' value={input.name} name="name" placeholder='PokeName' onChange={(e) => handleChange(e)} />
+                    <label className='textCreate'>Select Types</label> <br />
+                    <div className='typeBox'>
                         {
-                        errors.name && (
-                            <p className='errors'>{errors.name}</p>
-                        )
-                    }
+                                allTypes.map( type =>
+                                        <input
+                                            className={ types.includes(type.name)
+                                                ? 'inputIn'
+                                                : 'inputOut'
+                                            }
+                                            type="button"
+                                            value={type.name}
+                                            onClick={(e) => handleTypes(e)}
+                                        />
+                                )
+                        }
                     </div>
-                    <div>
-                        <label className='textCreate'>Select Types:</label>
-                        <select id='8' onChange={(e) => handleSelect(e)}>
-                            <option value="" hidden name="types">Select Types:</option>
-                            {
-                                allTypes?.map(pt => {
-                                    return ( <option value={pt.name} key={pt.id}>{pt.name}</option> )
-                                })
-                            }
-                        </select>
-                        <ul>
-                            <li>
-                                {
-                                    input.types.map( pt =>
-                                        <div>
-                                            <h5 className='textCreate'>
-                                                { allTypes?.find( p => p.name === pt)?.name }
-                                                <button className='deleteType' onClick={() => handleDelete(pt)}>X</button>
-                                            </h5>
-                                        </div>
-                                    )
-                                }
-                            </li>
-                        </ul>
+                    <div className='errorBox'>
                         {
                             errors.types && (
                                 <span className='errors'>{errors.types}</span>
                                 )
-                        }
-                    </div>
-                    <div>
-                        <label className='textCreate'>Image:</label>
-                        <input type="url" id='9' value={input.image} name="image" placeholder='Image Url...' onChange={(e) => handleChange(e)} />
-                        {
-                            errors.img && (
-                                <span className='errors'>{errors.image}</span>
-                            )
                         }
                     </div>
                 </div>
@@ -225,3 +221,4 @@ export default function Create() {
         </div>
     )
 }
+                                    

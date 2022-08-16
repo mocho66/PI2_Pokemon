@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { Type, Pokemon } = require("../db");
+// const api  = require("./ejemplo.js")
 
 
 const getApiData = async () => {  
@@ -7,12 +8,16 @@ const getApiData = async () => {
       let pokeApi1 = await axios.get('https://pokeapi.co/api/v2/pokemon');
       
       let pokeApi2 = await axios.get(pokeApi1.data.next);
-      
+            
       let pokeApi = [pokeApi1.data.results,pokeApi2.data.results].flat()
-      
+
       let pokeApiUrl = pokeApi.map((el) => axios.get(el.url));
       
       let pokeApiInfo = await axios.all(pokeApiUrl);
+      
+      //-----//
+      // let pokeApiInfo = api;
+      //-----//
       
       let apiData = pokeApiInfo.map((el) => {
         let pokemon = el.data
@@ -60,11 +65,14 @@ const allPokemons = async () => {
 
 const getTypes = async () => {
     try { 
-      const api = await getApiData();
-      const alltypes = await api.map((a) => a.Types);  // mapea y deja arrays de los types
-      const flatTypes = alltypes.flat(); // deja un solo array con todos los types (repetidos)
-      const typesNames = flatTypes.map((n) => n.name)  
-      const typesFinal = [...new Set(typesNames)]; // elimina los repetidos
+      
+      let pokeTypes = await axios.get('https://pokeapi.co/api/v2/type');
+
+      // const api = await getApiData();
+      // const alltypes = await api.map((a) => a.Types);  // mapea y deja arrays de los types
+      // const flatTypes = alltypes.flat(); // deja un solo array con todos los types (repetidos)
+      const typesFinal = pokeTypes.data.results.map((n) => n.name)  
+      // const typesFinal = [...new Set(typesNames)]; // elimina los repetidos
          
       typesFinal.forEach(async (t) => {
         await Type.findOrCreate({ 

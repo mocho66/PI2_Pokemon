@@ -11,6 +11,7 @@ export const GET_POKEMONS_DETAILS = "GET_POKEMONS_DETAILS";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const RESET_POKEMONS = "RESET_POKEMONS";
 export const POST_POKEMON = "POST_POKEMON";
+export const EMPTY_SHOWPOKES = "EMPTY_SHOWPOKES";
 
 const api = "http://localhost:3001";
 
@@ -50,7 +51,8 @@ export function postNewPoke(payload) {
         dispatch({
             type: POST_POKEMON,
             payload
-        })    
+        }) 
+        // console.log(newPokeResult);   
         return newPokeResult;
     }
 }
@@ -67,6 +69,13 @@ export function getDetails(id) {
         .catch((error) => {
             console.log(error)
         })
+    }
+}
+
+export function emptyShowPokemons() {
+    return {
+        type: EMPTY_SHOWPOKES,
+        payload: []
     }
 }
 

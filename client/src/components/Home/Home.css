@@ -1,0 +1,60 @@
+.backgroundHome {
+    background-image: url("../../img/fondoHome.png");
+    background-repeat: repeat;
+    /* overflow-y: hidden; */
+}
+
+.sfc{
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.createButton{
+    font-size: 15px;
+    color: rgba(1, 14, 195);
+    font-weight: bold;
+    background-color: rgba(254, 249, 0);
+    border-color: rgba(1, 14, 195);
+    /* -webkit-border-radius: 0px 50px 50px 0px; */
+    border-radius: 50px;
+    margin: 0.2em 0 0.2em 0;
+    padding: 0.5em;
+}
+
+.createButton:hover{
+    cursor: pointer;
+    color: rgb(254, 249, 0);
+    font-weight: bold;
+    background-color:  rgb(1, 14, 195);
+    border-color: rgb(254, 249, 0);
+    border-radius: 50px;
+    margin: 0.2em 0 0.2em 0;
+    padding: 0.5em;
+}
+
+.fondo { 
+    /* position: absolute; */
+    width: 100%;
+    top: 100hv;
+    background-color: rgba(0, 0, 0, 0.185);
+}
+
+.loadingCountainer { 
+    padding: 5.4%;
+}
+
+.loadingText {
+    color: rgb(254, 249, 0);
+    font-style: italic; 
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}

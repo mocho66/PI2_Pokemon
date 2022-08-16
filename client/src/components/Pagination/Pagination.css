@@ -1,0 +1,55 @@
+.resetBox {
+    position: absolute;
+    left: 3.5%;
+}
+
+.resetButton {
+    font-size: 15px;
+    color: rgba(1, 14, 195);
+    font-weight: bold;
+    background-color: rgba(254, 249, 0);
+    border-color: rgba(1, 14, 195);
+    border-radius: 50px;
+    margin: 0.2em 0 0.2em 0;
+    padding: 0.5em;
+}
+
+.resetButton:hover{
+    cursor: pointer;
+    color: rgb(254, 249, 0);
+    font-weight: bold;
+    background-color:  rgb(1, 14, 195);
+    border-color: rgb(254, 249, 0);
+    border-radius: 50px;
+    margin: 0.2em 0 0.2em 0;
+    padding: 0.5em;
+}
+
+.buttonP {
+    border-color: transparent;
+    background-color: transparent;
+    font-size: 20px;
+    color: rgba(254, 249, 0);
+    padding-bottom:7px;
+    padding-top: 7px;
+}
+
+.buttonP:hover {
+    cursor: pointer;
+    border-color: transparent;
+    background-color: rgba(254, 249, 0, 0.2);
+    font-size: 20px;
+    color: rgba(254, 249, 0);
+    padding-bottom:7px;
+    padding-top: 7px;
+}
+
+.buttonS {
+    border-color: transparent;
+    background-color: rgba(254, 249, 0, 0.4);
+    font-size: 20px;
+    color: rgba(1, 14, 195);
+    padding-bottom:7px;
+    padding-top: 7px;
+    border-bottom: 5px solid rgba(254, 249, 0);
+}
